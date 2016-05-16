@@ -276,6 +276,13 @@
         	dialog.mode = FBSDKShareDialogModeFeedWeb;
         }
 
+        // https://github.com/jeduan/cordova-plugin-facebook4/issues/36#issuecomment-184404897
+        // if you don't set this before canShow call, canShow would always return YES
+        if (![dialog canShow]) {
+            // fallback presentation when there is no FB app
+            dialog.mode = FBSDKShareDialogModeFeedBrowser;
+        }
+
         [dialog show];
         return;
     } else if ([method isEqualToString:@"apprequests"]) {
